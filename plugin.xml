@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://plugin.powerschool.pearson.com"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://plugin.powerschool.pearson.com plugin.xsd"
+        name="ChatGPT Chatbot"
+        version="0.6"
+        description="Plugin to train ChatGPT on SIS data">
+
+    <!-- Generates client API creds -->
+    <oauth></oauth>
+
+    <!-- Defines which data we can access -->
+   <access_request>
+        <!-- Schools -->
+        <field table="schools" field="dcid" access="ViewOnly" />
+        <field table="schools" field="id" access="ViewOnly" />
+        <field table="schools" field="name" access="ViewOnly" />
+        <field table="schools" field="school_number" access="ViewOnly" />
+        <field table="schools" field="address" access="ViewOnly" /> 
+    </access_request>
+
+    <!-- Mandatory element -->
+    <publisher name="Cory Houghton">
+        <contact email="cohawkeye@gmail.com"></contact>
+    </publisher>
+
+</plugin>
