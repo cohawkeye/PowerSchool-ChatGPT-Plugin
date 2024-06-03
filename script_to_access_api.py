@@ -5,7 +5,7 @@ import base64
 import json
 
 # Initialize Flask app
-#Generate your own secret
+#Generate your own secret if you choose.  
 app = Flask(__name__)
 app.secret_key = "{Secret}"
 
@@ -47,7 +47,7 @@ def get_bearer_token(client_id, client_secret):
             f"Failed to retrieve bearer token: {response.status_code} {response.text}"
         )
 
-#This function can probably go.  I just haven't figured out how to return all data yet.  
+#This function can probably go but it's a method to retrieve one building.  
 def get_school_data(school_id, access_token):
     headers = {
         "Authorization": f"Bearer {access_token}",
@@ -110,4 +110,4 @@ def test_api():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8083)
+    app.run(host="0.0.0.0", port=8080)
