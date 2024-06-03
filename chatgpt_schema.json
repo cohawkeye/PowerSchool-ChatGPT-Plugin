@@ -1,0 +1,179 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "School Data API",
+    "description": "Retrieves school data from PowerSchool via a localhost-hosted Flask application.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "URL_to_script_to_access_api"
+    }
+  ],
+  "paths": {
+    "/school-data/{school_id}": {
+      "get": {
+        "description": "Get data for a specific school",
+        "operationId": "GetSchoolData",
+        "parameters": [
+          {
+            "name": "school_id",
+            "in": "path",
+            "description": "The ID of the school to retrieve data for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with school data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchoolData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "School not found"
+          }
+        }
+      }
+    },
+    "/all-schools": {
+      "get": {
+        "description": "Get data for all schools",
+        "operationId": "GetAllSchoolsData",
+        "responses": {
+          "200": {
+            "description": "Successful response with all schools data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllSchoolsData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/all-data": {
+      "get": {
+        "description": "Get all data that the application has access to",
+        "operationId": "GetAllData",
+        "responses": {
+          "200": {
+            "description": "Successful response with all accessible data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/get-token": {
+      "get": {
+        "description": "Retrieve the OAuth access token",
+        "operationId": "GetOAuthToken",
+        "responses": {
+          "200": {
+            "description": "Successful response with access token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SchoolData": {
+        "type": "object",
+        "properties": {
+          "dcid": {
+            "type": "integer",
+            "description": "The unique district code ID"
+          },
+          "id": {
+            "type": "integer",
+            "description": "The unique ID of the school"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the school"
+          },
+          "school_number": {
+            "type": "integer",
+            "description": "The number identifier of the school"
+          },
+          "address": {
+            "type": "string",
+            "description": "The address of the school"
+          }
+        },
+        "required": ["dcid", "id", "name", "school_number", "address"]
+      },
+      "AllSchoolsData": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/SchoolData"
+        }
+      },
+      "AllData": {
+        "type": "object",
+        "properties": {
+          "schools": {
+            "$ref": "#/components/schemas/AllSchoolsData"
+          }
+        }
+      },
+      "AccessToken": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "The OAuth access token"
+          }
+        },
+        "required": ["access_token"]
+      }
+    }
+  }
+}
